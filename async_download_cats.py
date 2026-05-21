@@ -1,11 +1,14 @@
 # hundred_cats/async_download_cats.py
+from pathlib import Path
 
 from datetime import datetime
 import asyncio
 
 import aiohttp
+BASE_DIR = Path(__file__).parent
 
 URL = 'https://api.thecatapi.com/v1/images/search'
+CATS_DIR = CATS_DIR = BASE_DIR / 'cats'
 
 
 # Асинхронная функция для получения нового изображения.
