@@ -29,8 +29,6 @@ async def get_new_image_url():
         data = await response.json()
         # Извлечь URL случайного изображения из ответа.
         random_cat = data[0]['url']
-        # Напечатать URL изображения.
-        print(random_cat)
         # Вернуть URL изображения.
         return random_cat
 
