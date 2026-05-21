@@ -1,10 +1,10 @@
-# hundred_cats/async_download_cats.py
 from pathlib import Path
 import os
 from datetime import datetime
 import asyncio
 
 import aiohttp
+import aiofiles
 
 
 http_proxy = os.getenv('http_proxy', None)
@@ -46,16 +46,13 @@ async def main():
 
 # Асинхронная функция для загрузки файла по URL.
 async def download_file(url):
-    # Получить имя файла из URL. 
-    filename = url.split('/')[-1] 
-    # Создать асинхронную сессию для выполнения HTTP-запросов.
+    filename = url.split('/')[-1]
     async with aiohttp.ClientSession() as session:
-        # Выполнить асинхронный GET-запрос по заданному URL.
-        result = await session.get(url, proxy=PROXY)
-        # Открыть файл для записи в двоичном режиме.
-        with open(CATS_DIR / filename, 'wb') as f:  
-             # Прочитать содержимое ответа и записать его в файл.
-            f.write(await result.read())
+        result = await session.get(url)
+        # Здесь нужно использовать асинхронный контекстный менеджер.
+        async with aiofiles.open(CATS_DIR / filename, 'wb') as f:
+            # Перед методом записи нужно добавить ключевое слово await.
+            await f.write(await result.read())
 
 
 async def download_new_cat_image():

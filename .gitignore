@@ -1,2 +1,3 @@
 cats/
 venv/
+.env
