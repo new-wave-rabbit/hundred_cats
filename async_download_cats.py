@@ -47,7 +47,7 @@ async def download_file(url):
         # Выполнить асинхронный GET-запрос по заданному URL.
         result = await session.get(url)
         # Открыть файл для записи в двоичном режиме.
-        with open(filename, 'wb') as f:  
+        with open(CATS_DIR / filename, 'wb') as f:  
              # Прочитать содержимое ответа и записать его в файл.
             f.write(await result.read())
 
