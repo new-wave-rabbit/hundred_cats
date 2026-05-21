@@ -39,5 +39,10 @@ pip install -r requirements.txt
 ## Запуск программы 
 
 ```bash
+proxy=http://proxy.example.com:3128
+export http_proxy="$proxy"
+export https_proxy="$proxy"
+export no_proxy="localhost,127.0.0.1"
+
 python download_cats.py
 ```
