@@ -1,10 +1,16 @@
 # hundred_cats/async_download_cats.py
 from pathlib import Path
-
+import os
 from datetime import datetime
 import asyncio
 
 import aiohttp
+
+
+http_proxy = os.getenv('http_proxy', None)
+HTTP_PROXY = os.getenv('HTTP_PROXY', None)
+PROXY = (http_proxy or HTTP_PROXY or None)
+
 BASE_DIR = Path(__file__).parent
 
 URL = 'https://api.thecatapi.com/v1/images/search'
@@ -45,7 +51,7 @@ async def download_file(url):
     # Создать асинхронную сессию для выполнения HTTP-запросов.
     async with aiohttp.ClientSession() as session:
         # Выполнить асинхронный GET-запрос по заданному URL.
-        result = await session.get(url)
+        result = await session.get(url, proxy=PROXY)
         # Открыть файл для записи в двоичном режиме.
         with open(CATS_DIR / filename, 'wb') as f:  
              # Прочитать содержимое ответа и записать его в файл.
